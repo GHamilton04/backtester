@@ -5,7 +5,7 @@ import yfinance as yf
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
-def load_prices(ticker: str, start:str, end:str) -> pd.DataFrame:
+def load_prices(ticker: str, start: str, end:str) -> pd.DataFrame:
     """
     Load daily historical OHLCV data for a given ticker from Yahoo Finance.
     
@@ -20,6 +20,9 @@ def load_prices(ticker: str, start:str, end:str) -> pd.DataFrame:
         return df
 
     df = yf.download(ticker, start=start, end=end, auto_adjust=False, multi_level_index=False)
+
+    if df.empty:
+        raise ValueError(f"No data found for ticker {ticker} between {start} and {end}")
 
     DATA_DIR.mkdir(exist_ok=True)
     df.to_csv(file_path)
