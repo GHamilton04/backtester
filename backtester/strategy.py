@@ -4,8 +4,10 @@ def sma_crossover(prices: pd.Series, fast: int = 20, slow: int = 50) -> pd.Serie
     """
     Simple Moving Average (SMA) Crossover Strategy.
     
-    Generates buy/sell signals based on the crossover of two SMAs.
+    Generates buy/sell signals based on the crossover of two SMAs. 
     
+    Each signal uses that days closing price, so it must be shifted before trading on it.
+
     Parameters:
     - prices: A pandas Series of closing prices.
     - fast: The period for the fast SMA.
